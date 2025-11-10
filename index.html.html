@@ -1,339 +1,50 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Concepto Maitland — Estilo Periódico</title>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-<style>
-  /* --------- Reset & base ---------- */
-  :root{
-    --paper-bg: #fbfbf8;
-    --ink: #111;
-    --muted: #555;
-    --accent: #0b5f91;
-    --accent-dark: #094a6f;
-    --sep: rgba(17,17,17,0.08);
-    --print-margin: 20mm;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: var(--paper-bg);
-    color: var(--ink);
-    margin: 0;
-    line-height:1.45;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    padding: 30px;
-  }
-
-  /* --------- Newspaper container ---------- */
-  .paper {
-    max-width: 1100px;
-    margin: 0 auto;
-    background: white;
-    padding: 34px;
-    box-shadow: 0 10px 30px rgba(10,10,10,0.06);
-    border: 1px solid var(--sep);
-  }
-
-  /* Header / masthead */
-  .masthead {
-    display:flex;
-    align-items: baseline;
-    justify-content: space-between;
-    border-bottom: 3px solid var(--accent);
-    padding-bottom: 10px;
-    margin-bottom: 18px;
-  }
-  .masthead .title {
-    font-family: "Libre Baskerville", serif;
-    font-size: 40px;
-    font-weight:700;
-    color: var(--accent-dark);
-    letter-spacing: -1px;
-  }
-  .masthead .meta {
-    text-align: right;
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  /* Lead story layout: left column wide + right sidebar */
-  .layout {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-gap: 26px;
-  }
-
-  /* Article box */
-  .article {
-    padding-right: 12px;
-  }
-  .kicker {
-    color: var(--accent);
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-  }
-  h1.headline {
-    font-family: "Libre Baskerville", serif;
-    font-size: 28px;
-    margin: 0 0 8px 0;
-    color: #0d3b58;
-  }
-  .byline { color: var(--muted); font-size: 13px; margin-bottom: 14px }
-
-  .lede {
-    font-size: 17px;
-    margin-bottom: 14px;
-    color: #222;
-  }
-
-  /* Two-column body inside article */
-  .body {
-    column-count: 2;
-    column-gap: 28px;
-    font-size: 15px;
-  }
-  .body p { margin: 0 0 12px; }
-  .pull-quote {
-    float: right;
-    width: 220px;
-    margin-left: 18px;
-    font-family: "Libre Baskerville", serif;
-    font-size: 18px;
-    color: var(--accent-dark);
-    border-left: 4px solid var(--accent);
-    padding: 8px 12px 8px 16px;
-    background: linear-gradient(0deg, rgba(11,95,145,0.03), transparent);
-    margin-bottom:12px;
-  }
-
-  /* Sidebar cards */
-  .sidebar { display:flex; flex-direction:column; gap:14px; }
-  .card {
-    border: 1px solid var(--sep);
-    padding: 12px;
-    background: linear-gradient(180deg,#ffffff,#fbfeff);
-  }
-  .card h3{ margin:0 0 8px 0; font-size:16px; color:#083b54; font-weight:600 }
-  .card p{ margin:0; font-size:14px; color:var(--muted) }
-
-  /* Map visual (simple radial bubble) */
-  .mindmap {
-    width:100%;
-    height: 320px;
-    margin: 10px 0 6px 0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position: relative;
-  }
-  .bubble {
-    position: absolute;
-    border-radius: 999px;
-    padding: 10px 18px;
-    font-weight: 700;
-    color: white;
-    text-align: center;
-    font-size: 14px;
-    box-shadow: 0 6px 18px rgba(5,20,30,0.12);
-  }
-  .bubble.center{ background: linear-gradient(135deg,#0b5f91,#0b7fb3); width:230px; height:70px; display:flex; align-items:center; justify-content:center; left:50%; top:45%; transform:translate(-50%,-50%); }
-  .bubble.br1 { background: #3b9ad1; left:12%; top:22%; width:160px; height:48px; transform:translate(-50%,-50%); }
-  .bubble.br2 { background: #2f7aa0; right:10%; top:18%; width:180px; height:56px; transform:translate(50%,-50%); }
-  .bubble.br3 { background: #4ba3d6; left:10%; bottom:16%; width:165px; height:54px; transform:translate(-50%,50%); }
-  .bubble.br4 { background: #247bab; right:12%; bottom:14%; width:165px; height:54px; transform:translate(50%,50%); }
-  .bubble.br5 { background: #1a6b8f; left:50%; bottom:5%; width:220px; height:54px; transform:translate(-50%,50%); }
-
-  /* small legend */
-  .legend { font-size:13px; color:var(--muted); margin-top:8px; }
-
-  /* Image placeholders */
-  .img {
-    width:100%;
-    height:130px;
-    background: linear-gradient(90deg, rgba(11,95,145,0.05), rgba(0,0,0,0.02));
-    border:1px solid var(--sep);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--muted);
-    font-size:13px;
-  }
-
-  /* footer */
-  .foot {
-    margin-top:20px;
-    border-top:1px dashed var(--sep);
-    padding-top:12px;
-    color:var(--muted);
-    font-size:13px;
-    display:flex;
-    justify-content:space-between;
-  }
-
-  /* Responsive */
-  @media (max-width:900px){
-    .layout { grid-template-columns: 1fr; }
-    .body { column-count:1 }
-    .bubble.center { left:50%; top:38% }
-  }
-
-  /* Print-friendly */
-  @media print {
-    body{ padding:0; background:white; }
-    .paper { box-shadow:none; border:none; padding: 10mm; max-width: 100%; }
-    .masthead .title { font-size: 26px }
-    .layout { grid-template-columns: 1fr; }
-    .body { column-count: 1 }
-    header, .foot { page-break-inside: avoid; }
-    @page { margin: var(--print-margin); }
-  }
-
-  /* Tiny utility */
-  .muted { color:var(--muted); font-size:13px }
-
-.btn-borde {
-  background-color: white;   /* Fondo blanco para destacar el borde */
-  color: #4A6CF7;            /* Color del texto */
-  padding: 12px 25px;
-  border: 3px solid #4A6CF7; /* Borde visible */
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn-borde:hover {
-  background-color: #4A6CF7; /* Se llena de color al pasar el mouse */
-  color: white;              /* Texto se pone blanco */
-  transform: scale(1.05);    /* Animación de tamaño */
-}
-.btn {
-  display: block;
-  margin: 0 auto; /* centro horizontal */
-}
-
-
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Álbum de fotos</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-
-<main class="paper" role="main">
-  <header class="masthead" role="banner">
-    <div class="title">LAS NOTIESTUDIANTES</div>
-    <div class="meta">
-      7 de noviembre de 2025
-    </div>
+  <header class="site-header">
+    <h1>Mi álbum de fotos</h1>
+    <p>Haz clic en una miniatura para verla ampliada.</p>
   </header>
 
-  <section class="layout" role="main">
-    <!-- LEFT: Lead article -->
-    <article class="article" aria-labelledby="headline">
-      <h1 id="headline" class="headline">“La voz que informa, inspira y conecta.”</h1>
+  <main>
+    <section class="gallery" aria-label="Galería de fotos">
+      <!-- Cada .card representa una foto. Cambia src, data-full y alt -->
+      <figure class="card">
+        <img src="img/foto1.jpg" data-full="img/foto1.jpg" alt="Descripción de la foto 1" loading="lazy" />
+        <figcaption>Foto 1 — Playa</figcaption>
+      </figure>
 
-      <p class="lede">El objetivo de este periodico es Informar y compartir de manera clara y atractiva las actividades, logros y acontecimientos que se desarrollan , promoviendo la participación, el sentido de pertenencia y la comunicación entre la comunidad estudiantil.</p>
+      <figure class="card">
+        <img src="img/foto2.jpg" data-full="img/foto2.jpg" alt="Descripción de la foto 2" loading="lazy" />
+        <figcaption>Foto 2 — Ciudad</figcaption>
+      </figure>
 
-      <div class="mindmap" aria-hidden="true" title="Mapa mental esquemático">
-         <header>
+      <figure class="card">
+        <img src="img/foto3.jpg" data-full="img/foto3.jpg" alt="Descripción de la foto 3" loading="lazy" />
+        <figcaption>Foto 3 — Montaña</figcaption>
+      </figure>
 
-</body>
+      <!-- Copia/pega más figure.card según necesites -->
+    </section>
+  </main>
 
-      <center><img src="img/cecyto.jpg" alt="juego9" height="180px" width="400px"></center>
-      
-        </header>
-        
-      </div>
-      .<br>
+  <!-- Lightbox / Modal -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lightbox__close" aria-label="Cerrar">✕</button>
+    <button class="lightbox__nav prev" aria-label="Anterior">‹</button>
+    <div class="lightbox__content">
+      <img id="lightboxImg" src="" alt="" />
+      <p id="lightboxCaption"></p>
+    </div>
+    <button class="lightbox__nav next" aria-label="Siguiente">›</button>
+  </div>
 
-      <div class="body" aria-describedby="more-info">
-        <h3 id="more-info">Noticias Principales</h3>
-        <p>Este mes la escuela vivió momentos destacados dentro de la comunidad estudiantil. Se realizaron actividades culturales, sociales y deportivas en las que los alumnos participaron con entusiasmo y compromiso.</p>
-
-        <h3>Actividades Recientes</h3>
-        <p>Se llevó a cabo el convivio de los de nuevo ingreso y el dia de muertos, donde los estudiantes presentaron bailes,y muestras gastronómicas. Estas actividades fortalecen la convivencia, la creatividad y la expresión estudiantil.</p>
-<br>
-        <h3><blockquote class="pull-quote">“La participación activa fomenta la unión y el sentido de pertenencia.”</blockquote></h3>
-
-       
-        <h3>Participación de los Estudiantes</h3>
-        <p>Los alumnos demostraron interés por colaborar en la organización de actividades, apoyando, decoración, conducción de eventos y difusión.Esto refuerza el trabajo en equipo, el liderazgo y la iniciativa personal.</p>
-
-        
-      </div>
-    </article>
-
-    <!-- RIGHT: Sidebar -->
-    <aside class="sidebar" aria-labelledby="sidebar-title">
-      <div class="card" role="region" aria-label="Resumen rapido">
-
-<div class="card" role="region" aria-label="Recursos visuales">
-        
-        <center><img src="img/img1.png" alt="juego9" height="180px" width="180px"></center>
-        <div style="height:8px"></div>
-        
-      </div>
-
-      
-        <h3 id="sidebar-title">Panorama General</h3>
-        <p>
- Durante las últimas semanas, la escuela ha desarrollado diversas actividades que fortalecen la integración y participación de los estudiantes.</p></div>
-
-      <div class="card" role="region" aria-label="Evaluacion inicial">
-        <h3>“Situación Escolar Actual”</h3>
-        <p>Se han observado casos en los que se requiere reforzar hábitos de estudio y puntualidad.</p></div>
-
-      <div class="card" role="region" aria-label="Tips clinicos">
-        <h3>En este sitio podras encontar noticias interesantes sobre lo que expresan los estudiantes</h3>
-        <style>
-  .boton-regresar {
-   position: center;
-    bottom: 30px;
-    right: 10px;
-    padding: 10px 20px;
-    border: 2px solid;
-    border-image: linear-gradient(to right, #8A2BE2, #1E90FF, #00FFFF, #FF69B4, #8A2BE2) 1;
-    background-color: black;
-    font-family: Verdana;
-    font-size: 14px;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    z-index: 999;
-  }
-
-  .boton-regresar:hover {
-    box-shadow: 0 0 10px #00ffff;
-  }
-</style>
-
-<div style="margin-left:100px;margin-top:40px">
-<a href="noticias.html" class="boton-regresar">Noticias</a>
-</div>
-
-      <div class="card" role="region" aria-label="Recursos visuales">
-        <center><img src="img/img2.png" alt="juego9" height="180px" width="180px"></center>
-        <div style="height:8px"></div>
-        
-      </div>
-    </aside>
-  </section>
-
-  <footer class="foot" role="contentinfo">
-    <div class="muted">PERIÓDICO ESCOLAR 504</div>
-  </footer>
-</main>
-
+  <script src="js/main.js"></script>
 </body>
 </html>
